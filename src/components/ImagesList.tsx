@@ -1,45 +1,42 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {useFirestore} from "../hooks/useFirestore";
+import {createStyles, makeStyles} from '@material-ui/core/styles'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import {useFirestore} from "../hooks/useFirestore"
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: '10px',
+            display: 'flex',
+            marginTop: "40px",
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
         },
-        wrap: {
-
-            maxWidth: "1300px",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "10px 10px"
-
+        gridList: {
+            width: 900,
         },
-        img: {
-            width: "100%",
-            height: "100%",
-            margin: "5px"
+        "@media screen and (max-width: 1000px) ": {
+            gridList: {
+                width: 350,
+                height: 610
+            },
         }
-
     }),
-);
+)
 
-export const ImagesList = () => {
-    const {docs} = useFirestore('images')
-    console.log(docs)
-
+export const ImageGridList = () => {
     const classes = useStyles()
+    const {docs} = useFirestore('images')
+
     return (
         <div className={classes.root}>
-            <div className={classes.wrap}>
-
-                {docs && docs.map((item: any) => {
-                    return <img className={classes.img} src={item.url} key={item.id} alt='uploaded img'/>
-                })}
-            </div>
+            <GridList cellHeight={300} className={classes.gridList} cols={3}>
+                {docs && docs.map((tile: any) => (
+                    <GridListTile key={tile.id}>
+                        <img src={tile.url} alt='loaded img'/>
+                    </GridListTile>
+                ))}
+            </GridList>
         </div>
     )
 }

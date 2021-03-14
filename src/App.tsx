@@ -2,17 +2,21 @@ import React from 'react'
 import './App.css'
 import {Navbar} from "./components/Navbar"
 import {UploadForm} from "./components/UploadForm"
-import {ImagesList} from "./components/ImagesList";
+import {ImageGridList} from "./components/ImagesList"
+import {Footer} from "./components/Footer";
+import {Title} from "./components/Ttile";
 
-function App() {
-  return (
-    <div className="App">
-        <Navbar />
-        <h1>Add your favourite picture</h1>
-        <UploadForm />
-        <ImagesList />
-    </div>
-  )
+export function App() {
+    return (
+        <div>
+            <Navbar/>
+            <div className='wrap'>
+                <Title/>
+                <UploadForm/>
+                <ImageGridList/>
+                <Footer/>
+            </div>
+        </div>
+    )
 }
 
-export default App
